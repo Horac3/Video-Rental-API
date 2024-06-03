@@ -7,7 +7,7 @@ from model.base import Base
 if TYPE_CHECKING:
     from model.rental import Rental
 
-class Staff(Base):
+class StaffModel(Base):
     __tablename__ = 'staff'
     staff_id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str]

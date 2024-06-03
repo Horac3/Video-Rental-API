@@ -2,6 +2,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, ForeignKey, DateTime
 from datetime import datetime
 from model.base import Base
+from model.customer import CustomerModel
+from model.inventory import InventoryModel
+from model.staff import StaffModel
 
 class RentalModel(Base):
     __tablename__ = "rental"

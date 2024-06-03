@@ -2,6 +2,7 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from model.inventory import InventoryModel
+from model.rental import RentalModel
 
 engine = create_engine("mysql://root:121096@localhost/sakila")
 try:
@@ -12,8 +13,8 @@ except Exception as e:
 
 session = Session(engine)
 
-stmt = select(InventoryModel)
+stmt = select(RentalModel)
 result = session.execute(stmt)
-inventory = result.scalars().all()
-for item in inventory:
-    print(f"Inventory ID: {item.inventory_id}, Film ID: {item.film_id}, Store ID: {item.store_id}, Last Update: {item.last_update}")
+rental = result.scalars().all()
+for item in rental:
+    print(f"Customer: {item.customer.first_name}, Staff: {item.staff.first_name}, Inventory: {item.inventory.film_id}, Last Update: {item.last_update}")

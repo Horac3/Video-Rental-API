@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
-
 from typing import TYPE_CHECKING, List
 from model.base import Base
 
@@ -15,4 +14,4 @@ class InventoryModel(Base):
     store_id: Mapped[int] = mapped_column(ForeignKey('store.store_id'))
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.utcnow)
 
-  
+    rentals: Mapped[List["RentalModel"]] = relationship("RentalModel", back_populates="inventory")
