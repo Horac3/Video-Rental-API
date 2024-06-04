@@ -25,6 +25,7 @@ class Film(Base):
     description: Mapped[str]
     release_year: Mapped[datetime] = mapped_column(DateTime)
     language_id: Mapped[int] = mapped_column(ForeignKey('language.language.id'))
-    
+    original_language_id: Mapped[int] = mapped_column(ForeignKey('language.language_id'), nullable=True)
+
 
 
