@@ -18,7 +18,7 @@ class CustomerSchema(SQLAlchemyAutoSchema):
     first_name = ma.auto_field(required=True)
     last_name = ma.auto_field(required=True)
     email = ma.auto_field(required=True)
-    address_id = ma.auto_field(required=True)
+    # address_id = ma.auto_field(required=True)
     active = ma.auto_field(required=True)
     create_date = ma.auto_field(dump_only=True)
     last_update = ma.auto_field(dump_only=True)

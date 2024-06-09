@@ -8,11 +8,10 @@ from src.rental.model.rental_model import RentalModel
 from src.utils.db import db
 from src.inventory.schema.inventory_schema import InventorySchema
 
-blp = Blueprint("Inventory", "inventory", description= "Inventory Endpoints")
-blp = Blueprint("inventory", "inventory", url_prefix= "/film ")
-inventory = InventoryModel()
-rental = RentalModel()
+blp = Blueprint("Inventory", "Inventory", description= "Inventory Endpoints")
+# blp = Blueprint("inventory", "inventory", url_prefix= "/film ")
 
+@blp.route("/inventory")
 class InventoryRoute(MethodView):
     @blp.response(200, InventorySchema(many=True))
     def get(self ):
@@ -46,29 +45,30 @@ class InventoryRoute(MethodView):
         # WHERE
         #     r.rental_id IS NULL;
         rented_and_returned = (
-            db.session.query(
-                inventory.inventory_id,
-                FilmModel.film_id,
-                FilmModel.title,
-                literal('Rented and Returned').label('status')
-            )
-            .join(inventory, FilmModel.film_id == inventory.film_id)
-            .join(rental, inventory.inventory_id == rental.inventory_id)
-            .filter(rental.return_date.isnot(None))
+        db.session.query(
+            InventoryModel.inventory_id,
+            FilmModel.film_id,
+            FilmModel.title,
+            literal('Rented and Returned').label('status')
         )
+        .join(InventoryModel, FilmModel.film_id == InventoryModel.film_id)
+        .join(RentalModel, InventoryModel.inventory_id == RentalModel.inventory_id)
+        .filter(RentalModel.return_date.isnot(None))
+    )
+
 
         # Query for films that have never been rented out
         never_rented = (
-            db.session.query(
-                inventory.inventory_id,
-                FilmModel.film_id,
-                FilmModel.title,
-                literal('Never Rented').label('status')
-            )
-            .outerjoin(inventory, FilmModel.film_id == inventory.film_id)
-            .outerjoin(rental, inventory.inventory_id == rental.inventory_id)
-            .filter(rental.rental_id.is_(None))
+        db.session.query(
+            InventoryModel.inventory_id,
+            FilmModel.film_id,
+            FilmModel.title,
+            literal('Never Rented').label('status')
         )
+        .outerjoin(InventoryModel, FilmModel.film_id == InventoryModel.film_id)
+        .outerjoin(RentalModel, InventoryModel.inventory_id == RentalModel.inventory_id)
+        .filter(RentalModel.rental_id.is_(None))
+    )
 
         # Combine the two queries using union_all
         combined_query = rented_and_returned.union_all(never_rented)
@@ -83,5 +83,4 @@ class InventoryRoute(MethodView):
                 'title': result[2],
                 'status': result[3]
             })
-
         return films_dict
