@@ -1,9 +1,12 @@
-from typing import List, Set
+from typing import TYPE_CHECKING, List, Set
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Enum, ForeignKey, DateTime, Numeric, SmallInteger, String, Text
 from datetime import datetime
-from model.base import Base
 
+from src.base import Base
+from src.utils.db import db
+if TYPE_CHECKING:
+    from src.inventory.model.inventory_model import InventoryModel
 
 # film_id smallint UN AI PK
 # title varchar(128)
@@ -20,7 +23,7 @@ from model.base import Base
 # last_update timestamp
 
 
-class Film(Base):
+class FilmModel(db.Model):
     __tablename__ = 'film'
     film_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(128))

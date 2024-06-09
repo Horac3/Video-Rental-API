@@ -5,6 +5,8 @@
 # pip install pytest-mock
 import pytest
 
+from main import available_films
+
 class TestAvailableFilms:
 
     # correctly identifies films that have been rented and returned

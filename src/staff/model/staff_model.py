@@ -2,12 +2,14 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, ForeignKey, DateTime
 from datetime import datetime
 from typing import TYPE_CHECKING
-from model.base import Base
+
+from src.base import Base
+from src.utils.db import db
 
 if TYPE_CHECKING:
-    from model.rental import Rental
+    from src.rental.model.rental_model import RentalModel
 
-class StaffModel(Base):
+class StaffModel(db.Model):
     __tablename__ = 'staff'
     staff_id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str]
@@ -25,5 +27,5 @@ class StaffModel(Base):
     @classmethod
     def __init_subclass__(cls) -> None:
         super().__init_subclass__()
-        from model.rental import RentalModel
+        from src.rental.model.rental_model import RentalModel
         cls.rentals = relationship("RentalModel", back_populates="staff")
