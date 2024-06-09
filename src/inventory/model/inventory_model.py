@@ -14,5 +14,6 @@ class InventoryModel(db.Model):
     film_id: Mapped[int] = mapped_column(ForeignKey('film.film_id'))
     store_id: Mapped[int] = mapped_column(ForeignKey('store.store_id'))
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
+
     rentals: Mapped[List["RentalModel"]] = relationship("RentalModel", back_populates="inventory")
     film: Mapped[List["FilmModel"]] = relationship("FilmModel", back_populates="inventory")

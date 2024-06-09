@@ -2,7 +2,7 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from flask_marshmallow import Marshmallow
 from src.film.model.film_model import FilmModel
-from src.inventory.schema.inventory_schema import InventorySchema
+
 
 ma = Marshmallow()
 class FilmSchema(SQLAlchemyAutoSchema):
@@ -25,6 +25,6 @@ class FilmSchema(SQLAlchemyAutoSchema):
     special_features = ma.auto_field()
     last_update = ma.auto_field(dump_only=True)
 
-    inventory = Nested(InventorySchema, many=True, exclude=('film',), dump_only=True)
+    inventory = Nested("InventorySchema", many=True, exclude=('film',), dump_only=True)
 
 

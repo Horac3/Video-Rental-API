@@ -1,7 +1,6 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from flask_marshmallow import Marshmallow
-from src.rental.schema.rental_schema import RentalSchema
 from src.staff.model.staff_model import StaffModel
 
 
@@ -24,6 +23,6 @@ class StaffSchema(SQLAlchemyAutoSchema):
     password = ma.auto_field(load_only=True)
     last_update = ma.auto_field(dump_only=True)
 
-    rentals = Nested(RentalSchema, many=True, exclude=('staff',), dump_only=True)
+    rentals = Nested("RentalSchema", many=True, exclude=('staff',), dump_only=True)
 
 

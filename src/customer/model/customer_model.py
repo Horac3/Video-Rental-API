@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 class CustomerModel(db.Model):
     __tablename__ = 'customer'
     customer_id: Mapped[int] = mapped_column(primary_key=True)
-    first_name: Mapped[str]
-    last_name: Mapped[str]
-    email: Mapped[str]
+    first_name: Mapped[str] = mapped_column(String)
+    last_name: Mapped[str] = mapped_column(String)
+    email: Mapped[str] = mapped_column(String)
     address_id: Mapped[int] = mapped_column(ForeignKey('address.address_id'))
-    active: Mapped[int]
+    active: Mapped[int] = mapped_column(Integer)
     create_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.utcnow)
 

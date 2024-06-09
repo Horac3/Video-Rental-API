@@ -12,14 +12,14 @@ if TYPE_CHECKING:
 class StaffModel(db.Model):
     __tablename__ = 'staff'
     staff_id: Mapped[int] = mapped_column(primary_key=True)
-    first_name: Mapped[str]
-    last_name: Mapped[str]
+    first_name: Mapped[str] = mapped_column(String)
+    last_name: Mapped[str] = mapped_column(String)
     address_id: Mapped[int] = mapped_column(ForeignKey('address.address_id'))
-    email: Mapped[str]
+    email: Mapped[str] = mapped_column(String)
     store_id: Mapped[int] = mapped_column(ForeignKey('store.store_id'))
-    active: Mapped[int]
-    username: Mapped[str]
-    password: Mapped[str]
+    active: Mapped[int] = mapped_column(Integer)
+    username: Mapped[str] = mapped_column(String)
+    password: Mapped[str] = mapped_column(String)
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     rentals: Mapped[list["RentalModel"]] = relationship("RentalModel", back_populates="staff")

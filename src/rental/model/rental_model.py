@@ -17,7 +17,7 @@ class RentalModel(db.Model):
     rental_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     inventory_id: Mapped[int] = mapped_column(ForeignKey('inventory.inventory_id'))
     customer_id: Mapped[int] = mapped_column(ForeignKey('customer.customer_id'))
-    return_date: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    return_date: Mapped[datetime] = mapped_column(DateTime)
     staff_id: Mapped[int] = mapped_column(ForeignKey('staff.staff_id'))
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 

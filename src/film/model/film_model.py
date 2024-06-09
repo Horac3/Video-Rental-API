@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, List, Set
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Enum, ForeignKey, DateTime, Numeric, SmallInteger, String, Text
+from sqlalchemy import Enum, ForeignKey, DateTime, Integer, Numeric, SmallInteger, String, Text
 from datetime import datetime
 
 from src.base import Base
@@ -28,13 +28,13 @@ class FilmModel(db.Model):
     film_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(128))
     description: Mapped[str] = mapped_column(Text)
-    release_year: Mapped[int] = mapped_column(DateTime)
+    release_year: Mapped[int] = mapped_column(Integer)
     language_id: Mapped[int] = mapped_column(ForeignKey('language.language_id'))
-    original_language_id: Mapped[int] = mapped_column(ForeignKey('language.language_id'), nullable=True)
-    rental_duration: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    rental_rate: Mapped[float] = mapped_column(Numeric(4, 2), nullable=False)
-    length: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    replacement_cost: Mapped[float] = mapped_column(Numeric(5, 2), nullable=False)
+    original_language_id: Mapped[int] = mapped_column(ForeignKey('language.language_id'),)
+    rental_duration: Mapped[int] = mapped_column(SmallInteger, )
+    rental_rate: Mapped[float] = mapped_column(Numeric(4, 2),)
+    length: Mapped[int] = mapped_column(SmallInteger, )
+    replacement_cost: Mapped[float] = mapped_column(Numeric(5, 2),)
     rating: Mapped[str] = mapped_column(Enum('G', 'PG', 'PG-13', 'R', 'NC-17'))
     special_features: Mapped[str] = mapped_column(Enum('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes'))
     last_update: Mapped[datetime] = mapped_column(DateTime, onupdate=datetime.now)
