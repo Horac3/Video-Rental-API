@@ -1,7 +1,7 @@
 import os
 
 def configure_app(app):
-    app.config["API_TITLE"] =                os.getenv("API_TITLE")
+    app.config["API_TITLE"] = os.getenv("API_TITLE")
     app.config["API_VERSION"] = os.getenv("API_VERSION")
     app.config["OPENAPI_VERSION"] = os.getenv("OPENAPI_VERSION")
     app.config["OPENAPI_URL_PREFIX"] = os.getenv("OPENAPI_URL_PREFIX")
