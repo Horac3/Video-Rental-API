@@ -22,10 +22,5 @@ class StaffModel(db.Model):
     password: Mapped[str] = mapped_column(String)
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    rentals: Mapped[list["RentalModel"]] = relationship("RentalModel", back_populates="staff")
+    # rentals: Mapped[list["RentalModel"]] = relationship("RentalModel", back_populates="staff")
 
-    @classmethod
-    def __init_subclass__(cls) -> None:
-        super().__init_subclass__()
-        from src.rental.model.rental_model import RentalModel
-        cls.rentals = relationship("RentalModel", back_populates="staff")

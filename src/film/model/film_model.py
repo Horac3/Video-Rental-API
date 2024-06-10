@@ -36,7 +36,8 @@ class FilmModel(db.Model):
     length: Mapped[int] = mapped_column(SmallInteger, )
     replacement_cost: Mapped[float] = mapped_column(Numeric(5, 2),)
     rating: Mapped[str] = mapped_column(Enum('G', 'PG', 'PG-13', 'R', 'NC-17'))
-    special_features: Mapped[str] = mapped_column(Enum('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes'))
+    special_features: Mapped[str] = mapped_column(String)
+    # special_features: Mapped[str] = mapped_column(Enum('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes'))
     last_update: Mapped[datetime] = mapped_column(DateTime, onupdate=datetime.now)
 
     inventory : Mapped[List["InventoryModel"]] = relationship("InventoryModel", back_populates="film")

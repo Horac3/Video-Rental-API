@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, ForeignKey, DateTime
 from datetime import datetime
@@ -21,6 +21,6 @@ class RentalModel(db.Model):
     staff_id: Mapped[int] = mapped_column(ForeignKey('staff.staff_id'))
     last_update: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    customer: Mapped["CustomerModel"] = relationship("CustomerModel", back_populates="rentals")
-    inventory: Mapped["InventoryModel"] = relationship("InventoryModel", back_populates="rentals")
-    staff: Mapped["StaffModel"] = relationship("StaffModel", back_populates="rentals")
+    # customer: Mapped[List["CustomerModel"]] = relationship("CustomerModel", back_populates="rentals")
+    inventory: Mapped[List["InventoryModel"]] = relationship("InventoryModel", back_populates="rentals")
+    # staff: Mapped[List["StaffModel"]] = relationship("StaffModel", back_populates="rentals")
