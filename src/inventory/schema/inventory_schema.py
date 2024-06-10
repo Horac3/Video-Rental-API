@@ -18,5 +18,5 @@ class InventorySchema(SQLAlchemyAutoSchema):
     # store_id = ma.auto_field(dump_only=True)
     last_update = ma.auto_field(dump_only=True)
 
-    rentals = Nested(RentalSchema, many=True, exclude=('inventory',), dump_only=True)
-    film = Nested(FilmSchema, many=False, exclude=('inventory',), dump_only=True)
+    rentals = Nested(RentalSchema, many=True, exclude=('inventory',), dump_only=False)
+    film = Nested(FilmSchema, many=False, exclude=('inventory',), dump_only=False)
